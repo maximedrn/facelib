@@ -1,12 +1,21 @@
-# [FaceLib](https://github.com/sajjjadayobi/FaceLib): Face Analysis
+# [FaceLib](https://github.com/maximedrn/facelib): Face Analysis
 Used for face detection, facial expression, AgeGender estimation and recognition with PyTorch.
-- Instalation: `pip install git+https://github.com/sajjjadayobi/FaceLib.git`
+- Installation: `pip install git+https://github.com/maximedrn/facelib.git`
+
+This fork of [sajjjadayobi/FaceLib](https://github.com/sajjjadayobi/FaceLib)
+includes the four default pretrained models in the repository and in the Python
+package. Their weights are loaded locally, without an inference-time download.
+Python dependencies must still be installed separately by the package installer.
+
+See [MODEL_WEIGHTS.md](MODEL_WEIGHTS.md) for the exact paths, sources, SHA-256
+checksums, and the optional models that are not bundled. The public `facelib`
+imports are unchanged.
 
 ## How to use:
 Check this [example_notebook](https://github.com/sajjjadayobi/FaceLib/blob/master/example_notebook.ipynb) or take a look at the following sections
  
 ## 1. Face Detection: RetinaFace
-You can use these backbone networks: Resnet50, mobilenet. Default model is `mobilenet` and it will be automatically downloaded.
+You can use these backbone networks: Resnet50, mobilenet. The default `mobilenet` model is bundled. The optional Resnet50 model is downloaded when requested.
 - The following example illustrates the ease of use of this package on your webcam:
 ```python
      from facelib import WebcamFaceDetector
@@ -35,7 +44,7 @@ Original | Aligned & Resized | Original | Aligned & Resized |
 
 
 ## 3. Age & Gender Estimation:
-`ShufflenetFull` is the default model, and it will be automatically downloaded.
+`ShufflenetFull` is the default model, and its weights are bundled.
 - Age and gender estimation live on your webcam (or any camera)
  ```python
 from facelib import WebcamAgeGenderEstimator
@@ -55,7 +64,7 @@ print(genders, ages)
 ```
 
 ## 4. Facial Expression Recognition:
-The default model is `densnet121` and it will be automatically downloaded. Note that face size must be (224, 224).
+The default model is `densnet121` and its weights are bundled. Note that face size must be (224, 224).
 - Emotion detector live on your webcam
 ```python
 from facelib import WebcamEmotionDetector
@@ -115,7 +124,7 @@ You can save a new preson in facebank with 2 ways:
 ```
 
 #### Recognizer
-The default model is `mobilenet` and it will be automatically downloaded 
+The default MobileFaceNet model (`mobilenet`) is bundled. The optional IR-SE50 model is downloaded when requested.
 - Face Recognition live on your webcam
 ```python
 from facelib import WebcamVerify
@@ -129,7 +138,7 @@ from facelib import FaceRecognizer, FaceDetector
 from facelib import update_facebank, load_facebank, special_draw, get_config
 
 conf = get_config()
-# conf.use_mobilenet=False # if you want to use the bigger model
+# conf.use_mobilfacenet = False  # download and use the optional IR-SE50 model
 detector = FaceDetector(device=conf.device)
 face_rec = FaceRecognizer(conf)
 
